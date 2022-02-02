@@ -22,11 +22,18 @@ public class PlayerCharacterController : MonoBehaviour
     [Range(-1f,1f)]
     public float horizontalInput = 0f;
     public bool jumpInput = false;
+
+    private Animator anim;
     
     //jump force
     public float jumpForce = 800f;
 
     /**********************************************************************/
+
+    private void Start(){
+        anim = GetComponent<Animator>();
+        anim.SetBool("grounded", true);
+    }
 
     void Update(){
         // input for horizontal movement
@@ -87,6 +94,7 @@ public class PlayerCharacterController : MonoBehaviour
     private void UpdateGroundedStatus(){ 
         // unset flag 
         this.isGrounded = false;
+        anim.SetBool("grounded", false);
         if (this.groundChecker != null){
             Collider2D[] colliders = Physics2D.OverlapCircleAll(this.groundChecker.transform.position, 0.4f, this.groundCheckLayersMask);
 
@@ -95,6 +103,7 @@ public class PlayerCharacterController : MonoBehaviour
                     // check if the game object is not the player
                     if (colliders[i].gameObject != this.gameObject){
                         this.isGrounded = true;
+                        anim.SetBool("grounded", true);
                         // console.Log("ground " + this.isGrounded);
                     }
                 }
