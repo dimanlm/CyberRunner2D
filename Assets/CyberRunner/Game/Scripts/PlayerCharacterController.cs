@@ -99,7 +99,7 @@ public class PlayerCharacterController : MonoBehaviour
         // unset flag 
         this.isGrounded = false;
         if (this.groundChecker != null){
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(this.groundChecker.transform.position, 0.4f, this.groundCheckLayersMask);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(this.groundChecker.transform.position, 0.2f, this.groundCheckLayersMask);
             if (colliders != null && colliders.Length>0){ 
                 for (int i = 0; i < colliders.Length; i++){
                     // check if the game object is not the player
@@ -115,6 +115,6 @@ public class PlayerCharacterController : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(this.groundChecker.transform.position, 0.4f);
+        Gizmos.DrawSphere(this.groundChecker.transform.position, 0.2f);
     }
 }
