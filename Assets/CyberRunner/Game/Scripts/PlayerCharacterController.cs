@@ -10,6 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
     public Rigidbody2D Rigidbody2D = null;
 
     // velocity
+    [Header("Movement")]
     private Vector3 velocity = Vector3.zero;
 
     // behavior
@@ -19,6 +20,7 @@ public class PlayerCharacterController : MonoBehaviour
     public float moveDampFactor = 0.0f;
 
     // input
+    [Header("Input")]
     [Range(-1f,1f)]
     public float horizontalInput = 0f;
     public bool jumpInput = false;
@@ -26,13 +28,17 @@ public class PlayerCharacterController : MonoBehaviour
     private Animator anim;
     
     //jump force
+    [Header("Jumps")]
     public float jumpForce = 800f;
+    public bool canDoubleJump = false;
+
 
     /**********************************************************************/
 
     private void Start(){
         anim = GetComponent<Animator>();
         anim.SetBool("grounded", true);
+        anim.SetBool("doublejump", false);
     }
 
     void Update(){
@@ -45,10 +51,17 @@ public class PlayerCharacterController : MonoBehaviour
         this.HandleFlip();
 
         // Handle jump
+        anim.SetBool("doublejump", false);
         if (this.jumpInput == true && this.isGrounded==true){
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            canDoubleJump = true;
+        }else if (this.jumpInput == true && canDoubleJump){
+            this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce/(3/2)));
+            anim.SetBool("doublejump", true);
+            canDoubleJump = false;
         }
 
+        // if grounded is false, the you will see the flying animation
         if (this.isGrounded==false) {
             anim.SetBool("grounded", false);
         }
@@ -106,7 +119,6 @@ public class PlayerCharacterController : MonoBehaviour
                     if (colliders[i].gameObject != this.gameObject){
                         this.isGrounded = true;
                         anim.SetBool("grounded", true);
-                        // console.Log("ground " + this.isGrounded);
                     }
                 }
             }
