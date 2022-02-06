@@ -2015,8 +2015,9 @@ MonoBehaviour:
   moveSpeedFactor: 7
   moveDampFactor: 0
   horizontalInput: 0
-  jumpInput: 0
+  verticalInput: 0
   jumpForce: 800
+  doubleJumpForce: 600
   canDoubleJump: 0
   groundChecker: {fileID: 1558762532}
   isGrounded: 0

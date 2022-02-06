@@ -23,13 +23,15 @@ public class PlayerCharacterController : MonoBehaviour
     [Header("Input")]
     [Range(-1f,1f)]
     public float horizontalInput = 0f;
-    public bool jumpInput = false;
+    [Range(-1f,1f)]
+    public float verticalInput = 0f;
 
     private Animator anim;
     
     //jump force
     [Header("Jumps")]
     public float jumpForce = 800f;
+    public float doubleJumpForce = 400f;
     public bool canDoubleJump = false;
 
 
@@ -44,19 +46,20 @@ public class PlayerCharacterController : MonoBehaviour
     void Update(){
         // input for horizontal movement
         this.horizontalInput = Input.GetAxisRaw("Horizontal");
-        //input for jumping
-        this.jumpInput = Input.GetKeyDown(KeyCode.Space);
+        // input for vertical mvt
+        // this.verticalInput = Input.GetAxisRaw("Vertical");
 
         // handle flip
         this.HandleFlip();
 
         // Handle jump
         anim.SetBool("doublejump", false);
-        if (this.jumpInput == true && this.isGrounded==true){
+        // check vertical inputs
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
             canDoubleJump = true;
-        }else if (this.jumpInput == true && canDoubleJump){
-            this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce/(3/2)));
+        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump){
+            this.Rigidbody2D.AddForce(new Vector2(0.5f, doubleJumpForce));
             anim.SetBool("doublejump", true);
             canDoubleJump = false;
         }
