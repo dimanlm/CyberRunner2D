@@ -10,6 +10,7 @@ public class PlayerCharacterController : MonoBehaviour
     public Rigidbody2D Rigidbody2D = null;
 
     // velocity
+    [Header("Movement")]
     private Vector3 velocity = Vector3.zero;
 
     // behavior
@@ -19,36 +20,51 @@ public class PlayerCharacterController : MonoBehaviour
     public float moveDampFactor = 0.0f;
 
     // input
+    [Header("Input")]
     [Range(-1f,1f)]
     public float horizontalInput = 0f;
-    public bool jumpInput = false;
+    [Range(-1f,1f)]
+    public float verticalInput = 0f;
 
     private Animator anim;
     
     //jump force
+    [Header("Jumps")]
     public float jumpForce = 800f;
+    public float doubleJumpForce = 400f;
+    public bool canDoubleJump = false;
+
 
     /**********************************************************************/
 
     private void Start(){
         anim = GetComponent<Animator>();
         anim.SetBool("grounded", true);
+        anim.SetBool("doublejump", false);
     }
 
     void Update(){
         // input for horizontal movement
         this.horizontalInput = Input.GetAxisRaw("Horizontal");
-        //input for jumping
-        this.jumpInput = Input.GetKeyDown(KeyCode.Space);
+        // input for vertical mvt
+        // this.verticalInput = Input.GetAxisRaw("Vertical");
 
         // handle flip
         this.HandleFlip();
 
         // Handle jump
-        if (this.jumpInput == true && this.isGrounded==true){
+        anim.SetBool("doublejump", false);
+        // check vertical inputs
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            canDoubleJump = true;
+        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump){
+            this.Rigidbody2D.AddForce(new Vector2(0.5f, doubleJumpForce));
+            anim.SetBool("doublejump", true);
+            canDoubleJump = false;
         }
 
+        // if grounded is false, the you will see the flying animation
         if (this.isGrounded==false) {
             anim.SetBool("grounded", false);
         }
@@ -106,7 +122,6 @@ public class PlayerCharacterController : MonoBehaviour
                     if (colliders[i].gameObject != this.gameObject){
                         this.isGrounded = true;
                         anim.SetBool("grounded", true);
-                        // console.Log("ground " + this.isGrounded);
                     }
                 }
             }
