@@ -2107,7 +2107,7 @@ MonoBehaviour:
   sounds:
   - name: click
     clip: {fileID: 8300000, guid: 19ee23220d478354ca29f732069ff0d0, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -2116,7 +2116,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: jumpStart
     clip: {fileID: 8300000, guid: d22035de002018b44bc76a915efcba10, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -2125,7 +2125,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: jumpLand
     clip: {fileID: 8300000, guid: cb111f071b2e63844afba5ac99aceb2b, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -2143,7 +2143,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: run2
     clip: {fileID: 8300000, guid: 8900ae4b297a017448ddb78ea0c2d4da, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -2152,7 +2152,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: run3
     clip: {fileID: 8300000, guid: be6f9c5983062b9488c5423a7e1fd1e0, type: 3}
-    volume: 1
+    volume: 0.5
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
