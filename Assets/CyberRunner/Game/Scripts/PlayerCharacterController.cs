@@ -54,7 +54,7 @@ public class PlayerCharacterController : MonoBehaviour
 
         // Handle jump
         anim.SetBool("doublejump", false);
-        // check vertical inputs
+        // check vertical inputs and if the player is on the floor
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
             canDoubleJump = true;
