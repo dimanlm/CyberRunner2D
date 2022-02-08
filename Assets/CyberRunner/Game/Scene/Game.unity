@@ -2115,6 +2115,15 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: jumpStart
+    clip: {fileID: 8300000, guid: 7f4bb31f06728be4ba0bed5c2641896c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: doubleJump
     clip: {fileID: 8300000, guid: d22035de002018b44bc76a915efcba10, type: 3}
     volume: 1
     volumeVariance: 0
@@ -2143,15 +2152,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: run2
     clip: {fileID: 8300000, guid: 8900ae4b297a017448ddb78ea0c2d4da, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
-    source: {fileID: 0}
-  - name: run3
-    clip: {fileID: 8300000, guid: be6f9c5983062b9488c5423a7e1fd1e0, type: 3}
     volume: 1
     volumeVariance: 0
     pitch: 1
