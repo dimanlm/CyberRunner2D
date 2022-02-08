@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
+        clickOnButtonSound();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
     }
 
@@ -14,5 +15,12 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void clickOnButtonSound()
+    {
+        FindObjectOfType<AudioManager>().Play("click");
+    }
         
 }
+
+
