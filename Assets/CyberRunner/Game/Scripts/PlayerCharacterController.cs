@@ -34,6 +34,8 @@ public class PlayerCharacterController : MonoBehaviour
     public float doubleJumpForce = 400f;
     public bool canDoubleJump = false;
 
+    private bool onPlatform;
+    private bool onPlatformLastFrame = false;
 
     /**********************************************************************/
 
@@ -47,7 +49,7 @@ public class PlayerCharacterController : MonoBehaviour
         // input for horizontal movement
         this.horizontalInput = Input.GetAxisRaw("Horizontal");
         // input for vertical mvt
-        // this.verticalInput = Input.GetAxisRaw("Vertical");
+        // this.verticalInput = Input.GetAxisRaw("Vertical");    
 
         // handle flip
         this.HandleFlip();
@@ -57,12 +59,20 @@ public class PlayerCharacterController : MonoBehaviour
         // check vertical inputs and if the player is on the floor
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+            FindObjectOfType<AudioManager>().Play("jumpStart");
             canDoubleJump = true;
         }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump){
             this.Rigidbody2D.AddForce(new Vector2(0.5f, doubleJumpForce));
             anim.SetBool("doublejump", true);
+            FindObjectOfType<AudioManager>().Play("doubleJump");
             canDoubleJump = false;
         }
+
+        if (this.isGrounded == true && onPlatformLastFrame == false)
+        {
+            FindObjectOfType<AudioManager>().Play("jumpLand");
+        }
+        onPlatformLastFrame = this.isGrounded;
 
         // if grounded is false, the you will see the flying animation
         if (this.isGrounded==false) {
@@ -132,4 +142,15 @@ public class PlayerCharacterController : MonoBehaviour
     {
         Gizmos.DrawSphere(this.groundChecker.transform.position, 0.2f);
     }
+
+
+    // play animation sounds
+    private void runSound1(){
+        FindObjectOfType<AudioManager>().Play("run1");
+    }
+
+    private void runSound2(){
+        FindObjectOfType<AudioManager>().Play("run2");
+    }
+
 }
