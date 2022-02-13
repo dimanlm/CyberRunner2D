@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public Animator transition;
+    public float transitionTIme = 1f;
     public void PlayGame()
     {
         clickOnButtonSound();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1 );
+        FindObjectOfType<AudioManager>().Play("gates");
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex +1 ));
     }
 
     public void QuitGame()
@@ -19,6 +23,12 @@ public class MainMenu : MonoBehaviour
     public void clickOnButtonSound()
     {
         FindObjectOfType<AudioManager>().Play("click");
+    }
+
+    IEnumerator LoadScene(int sceneIndex){
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTIme);
+        SceneManager.LoadScene(sceneIndex);
     }
         
 }
