@@ -3545,6 +3545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPosition: {x: 0, y: 0, z: 0}
+  animator: {fileID: 768861504}
   playerCharacterController: {fileID: 768861508}
   cameraFollowPosition: {fileID: 1429151793}
   deathScreen: {fileID: 1007503922}
