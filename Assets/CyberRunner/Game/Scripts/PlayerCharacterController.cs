@@ -30,13 +30,16 @@ public class PlayerCharacterController : MonoBehaviour
     
     //jump force
     [Header("Jumps")]
+    public int maxJumps = 2;
+
+    private int jumps;
     public float jumpForce = 800f;
     public float doubleJumpForce = 400f;
-    public bool canDoubleJump = false;
+    // public bool canDoubleJump = false;
 
     private bool onPlatform;
     private bool onPlatformLastFrame = false;
-    private bool canJump = true;
+    // private bool canJump = true;
 
     /**********************************************************************/
 
@@ -58,16 +61,18 @@ public class PlayerCharacterController : MonoBehaviour
         // Handle jump
         anim.SetBool("doublejump", false);
         // check vertical inputs and if the player is on the floor
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
-            this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-            FindObjectOfType<AudioManager>().Play("jumpStart");
-            canDoubleJump = true;
-            StartCoroutine(JumpDelay());
-        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump && this.canJump){
-            this.Rigidbody2D.AddForce(new Vector2(2f, doubleJumpForce));
-            anim.SetBool("doublejump", true);
-            FindObjectOfType<AudioManager>().Play("doubleJump");
-            canDoubleJump = false;
+        //if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && this.isGrounded==true){
+        //    this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+        //    FindObjectOfType<AudioManager>().Play("jumpStart");
+        //    canDoubleJump = true;
+        //}else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump && this.canJump){
+        //    this.Rigidbody2D.AddForce(new Vector2(2f, doubleJumpForce));
+        //    anim.SetBool("doublejump", true);
+        //    FindObjectOfType<AudioManager>().Play("doubleJump");
+        //    canDoubleJump = false;
+        //}
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))){
+            this.Jump();
         }
 
         if (this.isGrounded == true && onPlatformLastFrame == false)
@@ -97,11 +102,20 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    IEnumerator JumpDelay()
+    private void Jump()
     {
-        this.canJump = false;
-        yield return new WaitForSeconds(0.15f);
-        this.canJump = true;
+        if (jumps > 0)
+        {
+            this.Rigidbody2D.AddForce (new Vector2 (0, jumpForce), ForceMode2D.Impulse);
+            isGrounded = false;
+            jumps = jumps - 1;
+            anim.SetBool("doublejump", true);
+            FindObjectOfType<AudioManager>().Play("jumpStart");        }
+        if (jumps == 0)
+        {
+            FindObjectOfType<AudioManager>().Play("doubleJump");
+            return;
+        }
     }
 
     // Flip
@@ -140,6 +154,7 @@ public class PlayerCharacterController : MonoBehaviour
                 for (int i = 0; i < colliders.Length; i++){
                     // check if the game object is not the player
                     if (colliders[i].gameObject != this.gameObject){
+                        jumps = maxJumps;
                         this.isGrounded = true;
                         anim.SetBool("grounded", true);
                     }
