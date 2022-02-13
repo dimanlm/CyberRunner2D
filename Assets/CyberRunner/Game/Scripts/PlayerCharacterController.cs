@@ -36,6 +36,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private bool onPlatform;
     private bool onPlatformLastFrame = false;
+    private bool canJump = true;
 
     /**********************************************************************/
 
@@ -61,8 +62,9 @@ public class PlayerCharacterController : MonoBehaviour
             this.Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
             FindObjectOfType<AudioManager>().Play("jumpStart");
             canDoubleJump = true;
-        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump){
-            this.Rigidbody2D.AddForce(new Vector2(0.5f, doubleJumpForce));
+            StartCoroutine(JumpDelay());
+        }else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && canDoubleJump && this.canJump){
+            this.Rigidbody2D.AddForce(new Vector2(2f, doubleJumpForce));
             anim.SetBool("doublejump", true);
             FindObjectOfType<AudioManager>().Play("doubleJump");
             canDoubleJump = false;
@@ -78,6 +80,7 @@ public class PlayerCharacterController : MonoBehaviour
         if (this.isGrounded==false) {
             anim.SetBool("grounded", false);
         }
+
     }
 
     // function for physics
@@ -92,6 +95,13 @@ public class PlayerCharacterController : MonoBehaviour
             // And then smoothing it out and applying it to the character
             this.Rigidbody2D.velocity = Vector3.SmoothDamp(this.Rigidbody2D.velocity, targetVelocity, ref velocity, this.moveDampFactor);
         }
+    }
+
+    IEnumerator JumpDelay()
+    {
+        this.canJump = false;
+        yield return new WaitForSeconds(0.15f);
+        this.canJump = true;
     }
 
     // Flip
