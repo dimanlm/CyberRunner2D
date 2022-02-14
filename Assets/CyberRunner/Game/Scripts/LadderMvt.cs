@@ -22,14 +22,13 @@ public class LadderMvt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.verticalInput = Input.GetAxis("Vertical");
-        if (this.isLadder && Mathf.Abs(this.verticalInput)>=0f){
+        this.anim.speed = 1;
+        this.verticalInput = Input.GetAxisRaw("Vertical");
+        
+        if (this.isLadder && Mathf.Abs(this.verticalInput)>0f){
             this.isClimbing = true;
             this.anim.SetBool("climbing", true);
-            
-            this.anim.speed = 1;
-
-        }else if (this.isLadder && Mathf.Abs(this.verticalInput)==0f){
+        }else if (this.isClimbing && Mathf.Abs(this.verticalInput)==0f){
             
             this.anim.speed = 0;
         
