@@ -36,7 +36,9 @@ public class PlayerCharacterController : MonoBehaviour
     public float doubleJumpForce = 400f;
     public bool canDoubleJump = false;
 
-
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
+    [Header("Better Jumps")]
     private bool onPlatform;
     private bool onPlatformLastFrame = false;
 
@@ -62,29 +64,30 @@ public class PlayerCharacterController : MonoBehaviour
         anim.SetBool("doublejump", false);
 
         // Handle jump
-        if (isGrounded)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            this.hangCounter = this.hangTime;
-        }
-        else
-        {
-            this.hangCounter -= Time.deltaTime;
-        }
-
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))){
             this.Jump();
         }
 
-        if (this.isGrounded == true && onPlatformLastFrame == false)
+        if (this.isGrounded && onPlatformLastFrame == false)
         {
             FindObjectOfType<AudioManager>().Play("jumpLand");
         }
         onPlatformLastFrame = this.isGrounded;
 
-
         // if grounded is false, the you will see the flying animation
         if (this.isGrounded==false) {
             anim.SetBool("grounded", false);
+        }
+
+        // increasing falling speed
+        if (Rigidbody2D.velocity.y < 0)
+        {
+            Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (Rigidbody2D.velocity.y > 0 && !(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        {
+            Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
@@ -104,7 +107,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (this.hangCounter>0)
+        if (this.isGrounded)
         {
             this.Rigidbody2D.velocity = new Vector2(this.Rigidbody2D.velocity.x, jumpForce);
             FindObjectOfType<AudioManager>().Play("jumpStart");
