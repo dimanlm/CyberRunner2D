@@ -23,9 +23,16 @@ public class LadderMvt : MonoBehaviour
     void Update()
     {
         this.verticalInput = Input.GetAxis("Vertical");
-        if (isLadder && Mathf.Abs(this.verticalInput)>=0f){
+        if (this.isLadder && Mathf.Abs(this.verticalInput)>=0f){
             this.isClimbing = true;
-            anim.SetBool("climbing", true);
+            this.anim.SetBool("climbing", true);
+            
+            this.anim.speed = 1;
+
+        }else if (this.isLadder && Mathf.Abs(this.verticalInput)==0f){
+            
+            this.anim.speed = 0;
+        
         }
     }
 

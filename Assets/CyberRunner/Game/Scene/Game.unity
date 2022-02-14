@@ -4839,7 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2535ba32ec614f34499850f91061740c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertical: 0
+  verticalInput: 0
   ladderMvtSpeed: 8
   isLadder: 0
   isClimbing: 0
