@@ -30,12 +30,16 @@ public class PlayerCharacterController : MonoBehaviour
     
     //jump force
     [Header("Jumps")]
+    public float hangTime = 0.2f;
+    private float hangCounter;
     public float jumpForce = 800f;
     public float doubleJumpForce = 400f;
     public bool canDoubleJump = false;
 
+
     private bool onPlatform;
     private bool onPlatformLastFrame = false;
+
 
     /**********************************************************************/
 
@@ -55,8 +59,17 @@ public class PlayerCharacterController : MonoBehaviour
         // handle flip
         this.HandleFlip();
 
-        // Handle jump
         anim.SetBool("doublejump", false);
+
+        // Handle jump
+        if (isGrounded)
+        {
+            this.hangCounter = this.hangTime;
+        }
+        else
+        {
+            this.hangCounter -= Time.deltaTime;
+        }
 
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))){
             this.Jump();
@@ -67,6 +80,7 @@ public class PlayerCharacterController : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("jumpLand");
         }
         onPlatformLastFrame = this.isGrounded;
+
 
         // if grounded is false, the you will see the flying animation
         if (this.isGrounded==false) {
@@ -90,7 +104,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (this.isGrounded)
+        if (this.hangCounter>0)
         {
             this.Rigidbody2D.velocity = new Vector2(this.Rigidbody2D.velocity.x, jumpForce);
             FindObjectOfType<AudioManager>().Play("jumpStart");
