@@ -42,6 +42,10 @@ public class PlayerCharacterController : MonoBehaviour
     private bool onPlatform;
     private bool onPlatformLastFrame = false;
 
+    // effects
+    [Header("Effects")]
+    public ParticleSystem footsteps;
+    private ParticleSystem.EmissionModule footEmission;
 
     /**********************************************************************/
 
@@ -50,6 +54,8 @@ public class PlayerCharacterController : MonoBehaviour
         anim.SetBool("grounded", true);
         anim.SetBool("doublejump", false);
         anim.SetBool("climbing", false);
+
+        footEmission = footsteps.emission;
     }
 
     void Update(){
@@ -89,6 +95,17 @@ public class PlayerCharacterController : MonoBehaviour
         {
             Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+
+        // show footsteps effect
+        if (horizontalInput != 0 && isGrounded)
+        {
+            footEmission.rateOverTime = 35f;
+        }
+        else
+        {
+            footEmission.rateOverTime = 0f;
+        }
+
     }
 
     // function for physics
