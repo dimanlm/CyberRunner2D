@@ -178,4 +178,12 @@ public class PlayerCharacterController : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("run2");
     }
 
+    private void climbSound1(){
+        FindObjectOfType<AudioManager>().Play("climb1");
+    }
+
+    private void climbSound2(){
+        FindObjectOfType<AudioManager>().Play("climb2");
+    }
+
 }
