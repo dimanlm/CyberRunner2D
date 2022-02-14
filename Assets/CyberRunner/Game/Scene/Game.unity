@@ -6827,9 +6827,12 @@ MonoBehaviour:
   moveDampFactor: 0
   horizontalInput: 0
   verticalInput: 0
-  maxJumps: 1
-  jumpForce: 10
-  doubleJumpForce: 3
+  hangTime: 0.2
+  jumpForce: 14
+  doubleJumpForce: 12
+  canDoubleJump: 0
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
   groundChecker: {fileID: 1558762532}
   isGrounded: 0
   groundCheckLayersMask:
