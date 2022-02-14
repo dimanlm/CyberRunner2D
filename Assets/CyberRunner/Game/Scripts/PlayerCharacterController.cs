@@ -47,6 +47,7 @@ public class PlayerCharacterController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("grounded", true);
         anim.SetBool("doublejump", false);
+        anim.SetBool("climbing", false);
     }
 
     void Update(){
@@ -85,7 +86,6 @@ public class PlayerCharacterController : MonoBehaviour
         if (this.isGrounded==false) {
             anim.SetBool("grounded", false);
         }
-
     }
 
     // function for physics
