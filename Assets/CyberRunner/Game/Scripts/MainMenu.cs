@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         clickOnButtonSound();
+        FindObjectOfType<AudioManager>().Stop("mainMenuTheme");
         FindObjectOfType<AudioManager>().Play("gates");
         StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex +1 ));
     }

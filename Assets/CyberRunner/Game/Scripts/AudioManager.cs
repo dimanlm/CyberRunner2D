@@ -17,11 +17,7 @@ public class AudioManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		else
-		{
-			instance = this;
-			DontDestroyOnLoad(gameObject);
-		}
+	
 
 		foreach (Sound s in sounds)
 		{
@@ -62,5 +58,12 @@ public class AudioManager : MonoBehaviour
 
 		s.source.Stop();
 	}
+
+	public void adjustvolume(float volume, string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        s.source.volume = volume;
+       
+    }
 
 }
