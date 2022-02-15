@@ -22,6 +22,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        clickOnButtonSound();
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -36,6 +37,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        clickOnButtonSound();
         FindObjectOfType<AudioManager>().Stop("inGameTheme");
         Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().Play("gates");
@@ -44,6 +46,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        clickOnButtonSound();
         Application.Quit();
     }
 
