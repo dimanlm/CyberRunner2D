@@ -3924,6 +3924,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mixerGroup: {fileID: 0}
   sounds:
+  - name: mainMenuTheme
+    clip: {fileID: 8300000, guid: 8a534670fc2bb1241b3f74bc62970baf, type: 3}
+    volume: 0.1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: inGameTheme
+    clip: {fileID: 8300000, guid: d20762f348c0002419e50ceafd3b9c42, type: 3}
+    volume: 0.1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
   - name: click
     clip: {fileID: 8300000, guid: 19ee23220d478354ca29f732069ff0d0, type: 3}
     volume: 0.5

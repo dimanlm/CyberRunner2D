@@ -36,6 +36,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        FindObjectOfType<AudioManager>().Stop("inGameTheme");
         Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().Play("gates");
         SceneManager.LoadScene("MainMenu");

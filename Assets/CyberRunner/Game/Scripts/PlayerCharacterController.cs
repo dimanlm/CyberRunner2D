@@ -49,6 +49,9 @@ public class PlayerCharacterController : MonoBehaviour
     /**********************************************************************/
 
     private void Start(){
+        FindObjectOfType<AudioManager>().Stop("mainMenuTheme");
+        FindObjectOfType<AudioManager>().Play("inGameTheme");
+
         anim = GetComponent<Animator>();
         anim.SetBool("grounded", true);
         anim.SetBool("doublejump", false);
