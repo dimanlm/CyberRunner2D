@@ -7,6 +7,8 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+    public Animator transition;
+    public float transitionTIme = 1f;
 
     void Update() 
     {
@@ -41,7 +43,7 @@ public class PauseMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Stop("inGameTheme");
         Time.timeScale = 1f;
         FindObjectOfType<AudioManager>().Play("gates");
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(LoadScene(0));
     }
 
     public void QuitGame()
@@ -53,5 +55,12 @@ public class PauseMenu : MonoBehaviour
     public void clickOnButtonSound()
     {
         FindObjectOfType<AudioManager>().Play("click");
+    }
+
+    // animation on scene loading
+    IEnumerator LoadScene(int sceneIndex){
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTIme);
+        SceneManager.LoadScene(sceneIndex);
     }
 }
