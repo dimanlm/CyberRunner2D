@@ -44,8 +44,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     // effects
     [Header("Effects")]
-    public ParticleSystem footsteps;
-    private ParticleSystem.EmissionModule footEmission;
+    public ParticleSystem dust;
 
     /**********************************************************************/
 
@@ -54,8 +53,6 @@ public class PlayerCharacterController : MonoBehaviour
         anim.SetBool("grounded", true);
         anim.SetBool("doublejump", false);
         anim.SetBool("climbing", false);
-
-        footEmission = footsteps.emission;
     }
 
     void Update(){
@@ -78,6 +75,7 @@ public class PlayerCharacterController : MonoBehaviour
         if (this.isGrounded && onPlatformLastFrame == false)
         {
             FindObjectOfType<AudioManager>().Play("jumpLand");
+            createDust();
         }
         onPlatformLastFrame = this.isGrounded;
 
@@ -95,17 +93,6 @@ public class PlayerCharacterController : MonoBehaviour
         {
             Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
-
-        // show footsteps effect
-        if (horizontalInput != 0 && isGrounded)
-        {
-            footEmission.rateOverTime = 35f;
-        }
-        else
-        {
-            footEmission.rateOverTime = 0f;
-        }
-
     }
 
     // function for physics
@@ -129,6 +116,7 @@ public class PlayerCharacterController : MonoBehaviour
             this.Rigidbody2D.velocity = new Vector2(this.Rigidbody2D.velocity.x, jumpForce);
             FindObjectOfType<AudioManager>().Play("jumpStart");
             canDoubleJump = true;
+            createDust();
         }
         else if (this.canDoubleJump)
         {
@@ -145,8 +133,10 @@ public class PlayerCharacterController : MonoBehaviour
     private void HandleFlip(){
         if (this.horizontalInput>0 && facingRight==false) {
             Flip();
+            createDust();
         }else if (this.horizontalInput<0 && facingRight==true) {
             Flip();
+            createDust();
         }
     }
     
@@ -188,6 +178,11 @@ public class PlayerCharacterController : MonoBehaviour
         Gizmos.DrawSphere(this.groundChecker.transform.position, 0.2f);
     }
 
+
+    // play particle animations
+    private void createDust(){
+        dust.Play();
+    }
 
     // play animation sounds
     private void runSound1(){
