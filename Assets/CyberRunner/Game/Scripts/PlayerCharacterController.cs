@@ -129,14 +129,14 @@ public class PlayerCharacterController : MonoBehaviour
 
     // Flip
     private bool facingRight = true;
-
     private void HandleFlip(){
-        if (this.horizontalInput>0 && facingRight==false) {
+        if (this.horizontalInput>0 && facingRight==false)
+        {
             Flip();
-            createDust();
-        }else if (this.horizontalInput<0 && facingRight==true) {
+        }
+        else if (this.horizontalInput<0 && facingRight==true)
+        {
             Flip();
-            createDust();
         }
     }
     
@@ -148,6 +148,10 @@ public class PlayerCharacterController : MonoBehaviour
         invertedScale.x *= -1;
         // Apply
         transform.localScale = invertedScale;
+
+        if (isGrounded){
+            createDust();
+        }
     }
 
     // Ground check
