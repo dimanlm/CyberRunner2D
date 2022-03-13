@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     // UI Death screen
     public GameObject deathScreen = null;
     public GameObject endOfGameScreen = null;
+    public GameObject inventoryUI = null;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +22,12 @@ public class Player : MonoBehaviour
         this.spawnPosition = this.playerCharacterController.transform.position;
         this.deathScreen.SetActive(false);
         this.endOfGameScreen.SetActive(false);
+        this.inventoryUI.SetActive(true);
     }
 
     public void Die(){
         this.deathScreen.SetActive(true);
+        this.inventoryUI.SetActive(false);
 
         // PLayer controller: Stop recieving input
         this.playerCharacterController.enabled = false;
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
         this.deathScreen.SetActive(false);
         // hide end of the game screen
         this.endOfGameScreen.SetActive(false);
+        this.inventoryUI.SetActive(true);
 
         // Character: teleported back to the spawn point
         this.playerCharacterController.transform.position = this.spawnPosition;
@@ -53,5 +57,6 @@ public class Player : MonoBehaviour
     public void CompleteLevel () 
     {
         this.endOfGameScreen.SetActive(true);
+        this.inventoryUI.SetActive(false);
     }
 }

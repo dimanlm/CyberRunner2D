@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject inventoryUI;
     public Animator transition;
     public float transitionTIme = 1f;
 
@@ -26,6 +27,7 @@ public class PauseMenu : MonoBehaviour
     {
         clickOnButtonSound();
         pauseMenuUI.SetActive(false);
+        inventoryUI.SetActive(true);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -33,6 +35,7 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
+        inventoryUI.SetActive(false);
         Time.timeScale = 0f;
         isPaused = true;
     }

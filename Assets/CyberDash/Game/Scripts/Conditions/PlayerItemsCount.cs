@@ -19,22 +19,26 @@ public class PlayerItemsCount : MonoBehaviour
     [Header("UI References")]
     public Image cardImage = null;
     public Text cardText = null;
+    public Image cashImage = null;
+    public Text cashText = null;
 
     void Update()
     {
-        if (this.PlayerInventory != null && this.PlayerInventory.cardCount > 0)
+        if (this.PlayerInventory != null)
         {
             // Show
             this.Show();
 
             // Update
             if (this.cardText != null)
+            {
                 this.cardText.text = this.PlayerInventory.cardCount.ToString();
-        }
-        else
-        {
-            // Hide view
-            this.Hide();
+            }
+            
+            if (this.cashText != null)
+            {
+                this.cashText.text = this.PlayerInventory.cashCount.ToString();
+            }
         }
     }
 
@@ -44,13 +48,11 @@ public class PlayerItemsCount : MonoBehaviour
             this.cardImage.gameObject.SetActive(true);
         if (this.cardText != null)
             this.cardText.gameObject.SetActive(true);
+
+        if (this.cashImage != null)
+            this.cashImage.gameObject.SetActive(true);
+        if (this.cashText != null)
+            this.cashText.gameObject.SetActive(true);
     }
 
-    void Hide()
-    {
-        if (this.cardImage != null)
-            this.cardImage.gameObject.SetActive(false);
-        if (this.cardText != null)
-            this.cardText.gameObject.SetActive(false);
-    }
 }

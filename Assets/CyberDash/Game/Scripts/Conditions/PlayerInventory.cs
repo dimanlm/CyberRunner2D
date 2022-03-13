@@ -5,4 +5,5 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public int cardCount = 0;
+    public int cashCount = 0;
 }
