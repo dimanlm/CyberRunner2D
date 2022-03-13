@@ -13,12 +13,14 @@ public class Player : MonoBehaviour
 
     // UI Death screen
     public GameObject deathScreen = null;
+    public GameObject endOfGameScreen = null;
 
     // Start is called before the first frame update
     void Start()
     {
         this.spawnPosition = this.playerCharacterController.transform.position;
         this.deathScreen.SetActive(false);
+        this.endOfGameScreen.SetActive(false);
     }
 
     public void Die(){
@@ -34,6 +36,8 @@ public class Player : MonoBehaviour
     public void Respawn(){
         // hide death screen
         this.deathScreen.SetActive(false);
+        // hide end of the game screen
+        this.endOfGameScreen.SetActive(false);
 
         // Character: teleported back to the spawn point
         this.playerCharacterController.transform.position = this.spawnPosition;
@@ -44,5 +48,10 @@ public class Player : MonoBehaviour
         // Player controller: Enable previous features after death
         this.playerCharacterController.enabled = true;
         this.cameraFollowPosition.enabled = true;
+    }
+
+    public void CompleteLevel () 
+    {
+        this.endOfGameScreen.SetActive(true);
     }
 }
