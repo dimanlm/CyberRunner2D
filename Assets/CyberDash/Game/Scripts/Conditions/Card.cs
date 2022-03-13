@@ -23,6 +23,9 @@ public class Card : MonoBehaviour
             // Unset flag
             this.canBeGrabbed = false;
 
+            // play the collect sound
+            FindObjectOfType<AudioManager>().Play("collect");
+
             // Delete key from scene (and prevent further use)
             GameObject.Destroy(this.gameObject);
         }

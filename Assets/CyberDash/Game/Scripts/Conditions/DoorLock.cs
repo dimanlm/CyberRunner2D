@@ -33,6 +33,7 @@ public class DoorLock : MonoBehaviour
             {
                 // Remove a key from inventory
                 playerInventory.cardCount -= 1;
+                FindObjectOfType<AudioManager>().Play("finish");
 
                 // Enabling door will make it move
                 if (this.doorMovingPlatform != null)

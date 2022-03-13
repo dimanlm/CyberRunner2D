@@ -19,7 +19,10 @@ public class Cash : MonoBehaviour
         {
             // Attribute key to inventory
             playerInventory.cashCount += 1;
-
+            
+            // play the collect sound
+            FindObjectOfType<AudioManager>().Play("collect");
+            
             // Unset flag
             this.canBeGrabbed = false;
 
