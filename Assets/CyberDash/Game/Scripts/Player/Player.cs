@@ -11,10 +11,25 @@ public class Player : MonoBehaviour
     public PlayerCharacterController playerCharacterController = null;
     public FollowPosition cameraFollowPosition = null;
 
+    // importing the inventory to check if all "money" components were collected (10) -> shows a message at the end of the level
+    public int totalCashComponents = 10;
+    public GameObject congratsMessage = null;
+    [SerializeField] private PlayerInventory playerInventory = null;
+    public PlayerInventory PlayerInventory
+    {
+        get
+        {
+            if (this.playerInventory == null)
+                this.playerInventory = this.gameObject.GetComponentInParent<PlayerInventory>();
+            return this.playerInventory;
+        }
+    }
+
     // UI Death screen
     public GameObject deathScreen = null;
     public GameObject endOfGameScreen = null;
     public GameObject inventoryUI = null;
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -58,5 +73,10 @@ public class Player : MonoBehaviour
     {
         this.endOfGameScreen.SetActive(true);
         this.inventoryUI.SetActive(false);
+
+        if (this.PlayerInventory.cashCount == totalCashComponents) 
+        {
+            this.congratsMessage.SetActive(true);
+        }
     }
 }
