@@ -6,9 +6,13 @@ This is a 2D platformer game, where you will wake up in an underground office fr
 GLHF.
 
 
-You can clone the project and build it, or go to the following link and try the game (*password: 1234*): 
-https://dimanlm.itch.io/cyberdash2d
+You can download the zip file containing the game build, or try the game directly in your browser by going to the following link:
 
+- https://dimanlm.itch.io/cyberdash2d
+    
+    *Password: 1234*
+
+---
 Assets used in this project:
 ### Graphics:
 * https://free-game-assets.itch.io/free-industrial-zone-tileset-pixel-art
